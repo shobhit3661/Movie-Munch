@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:movie_munch/bloc/get_now_playing.dart';
+import 'package:movie_munch/bloc/get_now_playing_bloc.dart';
 import 'package:movie_munch/model/movie.dart';
 import 'package:movie_munch/model/movie_response.dart';
 import 'package:movie_munch/style/theme.dart' as Style;
+import 'package:page_indicator/page_indicator.dart';
+import 'package:movie_munch/screens/detail_screen.dart';
 
 class NowPlaying extends StatefulWidget {
   @override
@@ -97,13 +99,21 @@ class _NowPlayingState extends State<NowPlaying> {
           indicatorColor: Style.Colors.titleColor,
           indicatorSelectorColor: Style.Colors.secondColor,
           shape: IndicatorShape.circle(size: 5.0),
-          pageView: PageView.builder(
+          child: PageView.builder(
             controller: pageController,
             scrollDirection: Axis.horizontal,
             itemCount: movies.take(5).length,
             itemBuilder: (context, index) {
               return GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          MovieDetailScreen(movie: movies[index]),
+                    ),
+                  );
+                },
                 child: Stack(
                   children: <Widget>[
                     Hero(

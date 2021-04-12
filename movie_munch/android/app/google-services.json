@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "667319887405",
+    "firebase_url": "https://moviecollection-5133d-default-rtdb.firebaseio.com",
+    "project_id": "moviecollection-5133d",
+    "storage_bucket": "moviecollection-5133d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:667319887405:android:331b4bf31283ffe4507aa4",
+        "android_client_info": {
+          "package_name": "com.example.movie_munch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "667319887405-ij3vm7p4km0j6mn9mpctdvath9gkvgkp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4JvwFmNQ2cY1FvEYMY_hHdzbukY2Cdvw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "667319887405-ij3vm7p4km0j6mn9mpctdvath9gkvgkp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
