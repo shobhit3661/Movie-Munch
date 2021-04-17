@@ -55,9 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text("Discover"),
         actions: <Widget>[
           IconButton(
-              onPressed: () {
-                print("search pressed");
-              },
+              onPressed: () {},
               icon: Icon(
                 EvaIcons.searchOutline,
                 color: Colors.white,

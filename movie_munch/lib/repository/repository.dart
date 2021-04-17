@@ -17,6 +17,7 @@ class MovieRepository {
   var getGenresUrl = "$mainUrl/genre/movie/list";
   var getPersonsUrl = "$mainUrl/trending/person/week";
   var movieUrl = "$mainUrl/movie";
+  var serachUrl = "$mainUrl/search/movie";
 
   Future<MovieDetailResponse> getMovieDetail(int id) async {
     var params = {"api_key": apiKey, "language": "en-US"};

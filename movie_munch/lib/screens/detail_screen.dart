@@ -4,14 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:movie_munch/bloc/get_movie_videos_bloc.dart';
 import 'package:movie_munch/model/movie.dart';
-import 'package:movie_munch/model/video.dart';
-import 'package:movie_munch/model/video_response.dart';
 import 'package:movie_munch/style/theme.dart' as Style;
 import 'package:movie_munch/widgets/casts.dart';
 import 'package:movie_munch/widgets/movie_info.dart';
 import 'package:movie_munch/widgets/similar_movies.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import 'video_player.dart';
 
 class MovieDetailScreen extends StatefulWidget {
   final Movie movie;
@@ -180,48 +176,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
           );
         },
       ),
-    );
-  }
-
-  Widget _buildLoadingWidget() {
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [],
-    ));
-  }
-
-  Widget _buildErrorWidget(String error) {
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Error occured: $error"),
-      ],
-    ));
-  }
-
-  Widget _buildVideoWidget(VideoResponse data) {
-    List<Video> videos = data.videos;
-    return FloatingActionButton(
-      backgroundColor: Style.Colors.secondColor,
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => VideoPlayerScreen(
-              controller: YoutubePlayerController(
-                initialVideoId: videos[0].key,
-                flags: YoutubePlayerFlags(
-                  autoPlay: true,
-                  mute: true,
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-      child: Icon(Icons.play_arrow),
     );
   }
 }

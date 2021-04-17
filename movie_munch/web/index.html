@@ -40,6 +40,30 @@
       });
     }
   </script>
+
+<script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyBKcYfDBdBlfw3SGUXGtPlDVXcAq1oWY5g",
+    authDomain: "moviecollection-5133d.firebaseapp.com",
+    databaseURL: "https://moviecollection-5133d-default-rtdb.firebaseio.com",
+    projectId: "moviecollection-5133d",
+    storageBucket: "moviecollection-5133d.appspot.com",
+    messagingSenderId: "667319887405",
+    appId: "1:667319887405:web:396f812000175170507aa4",
+    measurementId: "G-KFFKC7T73E"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>

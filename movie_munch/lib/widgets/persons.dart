@@ -1,10 +1,6 @@
-import 'dart:convert';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:movie_munch/bloc/get_persons_bloc.dart';
-import 'package:movie_munch/model/movie_response.dart';
 import 'package:movie_munch/model/person.dart';
 import 'package:movie_munch/model/person_response.dart';
 import 'package:movie_munch/style/theme.dart' as Style;

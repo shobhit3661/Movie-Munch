@@ -13,6 +13,7 @@ class VideoResponse {
         error = "";
 
   VideoResponse.withError(String errorValue)
+      // ignore: deprecated_member_use
       : videos = List(),
         error = errorValue;
 }

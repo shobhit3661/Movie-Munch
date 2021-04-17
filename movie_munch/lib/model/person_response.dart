@@ -12,6 +12,7 @@ class PersonResponse {
         error = "";
 
   PersonResponse.withError(String errorValue)
+      // ignore: deprecated_member_use
       : persons = List(),
         error = errorValue;
 }

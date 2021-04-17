@@ -12,6 +12,7 @@ class GenreResponse {
         error = "";
 
   GenreResponse.withError(String errorValue)
+      // ignore: deprecated_member_use
       : genres = List(),
         error = errorValue;
 }

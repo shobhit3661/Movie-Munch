@@ -12,6 +12,7 @@ class MovieResponse {
         error = "";
 
   MovieResponse.withError(String errorValue)
+      // ignore: deprecated_member_use
       : movies = List(),
         error = errorValue;
 }
