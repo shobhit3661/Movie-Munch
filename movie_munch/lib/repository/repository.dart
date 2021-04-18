@@ -31,6 +31,17 @@ class MovieRepository {
     }
   }
 
+  Future<MovieResponse> getSeach(String s) async {
+    var params = {"api_key": apiKey, "language": "en-US", "query": s};
+    try {
+      Response response = await _dio.get(serachUrl, queryParameters: params);
+      return MovieResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      return MovieResponse.withError("$error");
+    }
+  }
+
   Future<MovieResponse> getMovies() async {
     var params = {"api_key": apiKey, "language": "en-US", "page": 1};
     try {

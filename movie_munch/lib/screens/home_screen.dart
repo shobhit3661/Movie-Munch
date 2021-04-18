@@ -6,6 +6,7 @@ import 'package:movie_munch/widgets/genres.dart';
 import 'package:movie_munch/widgets/now_playing.dart';
 import 'package:movie_munch/widgets/persons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:movie_munch/widgets/result.dart';
 
 class HomeScreen extends StatefulWidget {
   static String id = 'home_screen';
@@ -20,7 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-
     getCurrentUser();
   }
 
@@ -55,7 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text("Discover"),
         actions: <Widget>[
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                showSearch(context: context, delegate: DataSearch());
+              },
               icon: Icon(
                 EvaIcons.searchOutline,
                 color: Colors.white,
@@ -71,5 +73,40 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
+}
+
+class DataSearch extends SearchDelegate<String> {
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          query = "";
+        },
+      )
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: () {},
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return null;
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    if (query.length > 1) {
+      return ResultInfo(s: query);
+    }
+    return ResultInfo(s: "old");
   }
 }
