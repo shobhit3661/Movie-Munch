@@ -13,13 +13,11 @@ class ResultInfo extends StatefulWidget {
 }
 
 class _MovieInfoState extends State<ResultInfo> {
-  // final String searchString;
-  _MovieInfoState(this.searchString);
+  _MovieInfoState(searchString);
   @override
   void initState() {
     super.initState();
     searchResult.getMovies(widget.searchString);
-    print(widget.searchString);
   }
 
   @override
