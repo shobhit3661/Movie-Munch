@@ -39,22 +39,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       body: new Builder(
         builder: (context) {
           return new CustomScrollView(
-            // : StreamBuilder<VideoResponse>(
-            //   stream: movieVideosBloc.subject.stream,
-            //   builder: (context, AsyncSnapshot<VideoResponse> snapshot) {
-            //     if (snapshot.hasData) {
-            //       if (snapshot.data.error != null &&
-            //           snapshot.data.error.length > 0) {
-            //         return _buildErrorWidget(snapshot.data.error);
-            //       }
-            //       return _buildVideoWidget(snapshot.data);
-            //     } else if (snapshot.hasError) {
-            //       return _buildErrorWidget(snapshot.error);
-            //     } else {
-            //       return _buildLoadingWidget();
-            //     }
-            //   },
-            // ),
             slivers: <Widget>[
               new SliverAppBar(
                 backgroundColor: Style.Colors.mainColor,

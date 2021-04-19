@@ -1,5 +1,6 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_munch/style/theme.dart' as Style;
 import 'package:movie_munch/widgets/best_movies.dart';
 import 'package:movie_munch/widgets/genres.dart';
@@ -93,7 +94,9 @@ class DataSearch extends SearchDelegate<String> {
   Widget buildLeading(BuildContext context) {
     return IconButton(
       icon: Icon(Icons.arrow_back),
-      onPressed: () {},
+      onPressed: () {
+        close(context, null);
+      },
     );
   }
 
@@ -104,9 +107,9 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    if (query.length > 1) {
-      return ResultInfo(s: query);
+    if (query != '') {
+      return ResultInfo(searchString: query);
     }
-    return ResultInfo(s: "old");
+    return ResultInfo(searchString: "old");
   }
 }

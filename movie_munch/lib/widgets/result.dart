@@ -6,24 +6,20 @@ import 'package:movie_munch/screens/detail_screen.dart';
 import 'package:movie_munch/style/theme.dart' as Style;
 
 class ResultInfo extends StatefulWidget {
-  final String s;
-  ResultInfo({Key key, @required this.s}) : super(key: key);
+  final String searchString;
+  ResultInfo({Key key, @required this.searchString}) : super(key: key);
   @override
-  _MovieInfoState createState() => _MovieInfoState(s);
+  _MovieInfoState createState() => _MovieInfoState(searchString);
 }
 
 class _MovieInfoState extends State<ResultInfo> {
-  final String s;
-  _MovieInfoState(this.s);
+  // final String searchString;
+  _MovieInfoState(this.searchString);
   @override
   void initState() {
     super.initState();
-    searchResult..getMovies(s);
-  }
-
-  @override
-  void setState(fn) {
-    super.setState(fn);
+    searchResult.getMovies(widget.searchString);
+    print(widget.searchString);
   }
 
   @override
