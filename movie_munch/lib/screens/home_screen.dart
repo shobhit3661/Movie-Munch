@@ -1,9 +1,10 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_munch/bloc/get_search_result.dart';
 import 'package:movie_munch/style/theme.dart' as Style;
 import 'package:movie_munch/widgets/best_movies.dart';
 import 'package:movie_munch/widgets/genres.dart';
+import 'package:movie_munch/widgets/main_drawer.dart';
 import 'package:movie_munch/widgets/now_playing.dart';
 import 'package:movie_munch/widgets/persons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
       final user = _auth.currentUser;
       if (user != null) {
         loggedInUser = user;
+        print("loggedInUser.email");
         print(loggedInUser.email);
       }
     } catch (e) {
@@ -44,15 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: Style.Colors.mainColor,
         centerTitle: true,
-        leading: new IconButton(
-          icon: new Icon(
-            EvaIcons.menu2Outline,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            print("menu pressed");
-          },
-        ),
         title: Text("Discover"),
         actions: <Widget>[
           IconButton(
@@ -65,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ))
         ],
       ),
+      drawer: MainDrawer(),
       body: ListView(
         children: <Widget>[
           NowPlaying(),
@@ -102,12 +96,14 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return null;
+    searchResult.getMovies(query);
+    return ResultInfo(searchString: query);
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     if (query != '') {
+      searchResult.getMovies(query);
       return ResultInfo(searchString: query);
     }
     return ResultInfo(searchString: "old");

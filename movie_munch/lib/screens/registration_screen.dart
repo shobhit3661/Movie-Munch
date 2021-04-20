@@ -105,7 +105,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           email: email, password: password);
 
                       if (newUser != null) {
-                        Navigator.pushNamed(context, HomeScreen.id);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeScreen()));
                       }
                     } catch (e) {
                       print(e);
