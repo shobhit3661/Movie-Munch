@@ -140,18 +140,20 @@ class _SimilarMoviesState extends State<SimilarMovies> {
                     Hero(
                       tag: movies[index].id,
                       child: Container(
-                          width: 120.0,
-                          height: 180.0,
-                          decoration: new BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(2.0)),
-                            shape: BoxShape.rectangle,
-                            image: new DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                    "https://image.tmdb.org/t/p/w200/" +
-                                        movies[index].poster)),
-                          )),
+                        width: 120.0,
+                        height: 180.0,
+                        decoration: new BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(2.0),
+                          ),
+                          shape: BoxShape.rectangle,
+                          image: new DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                  "https://image.tmdb.org/t/p/w200/" +
+                                      movies[index].poster)),
+                        ),
+                      ),
                     ),
                     SizedBox(
                       height: 10.0,

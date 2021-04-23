@@ -1,10 +1,11 @@
 import 'dart:ui';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_munch/screens/cart_screen.dart';
 import 'package:movie_munch/style/theme.dart' as Style;
 
+// ignore: must_be_immutable
 class MainDrawer extends StatelessWidget {
   final _auth = FirebaseAuth.instance;
   User loggedInUser;
@@ -30,6 +31,9 @@ class MainDrawer extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+            SizedBox(
+              height: 20,
+            ),
             Icon(
               Icons.person,
               color: Style.Colors.secondColor,
@@ -49,15 +53,15 @@ class MainDrawer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => CartScreen()));
+                  },
                   child: Text(
                     "Favorites",
                     style: TextStyle(
                         color: Style.Colors.secondColor, fontSize: 20),
                   ),
-                ),
-                SizedBox(
-                  height: 500,
                 ),
                 TextButton(
                   onPressed: () {
