@@ -19,17 +19,17 @@ class MovieDetailScreen extends StatefulWidget {
 }
 
 class _MovieDetailScreenState extends State<MovieDetailScreen> {
+  String userEmail;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   CollectionReference db = FirebaseFirestore.instance.collection('data');
   bool _active = false;
   final _auth = FirebaseAuth.instance;
   User loggedInUser;
-  String userEmail;
   final Movie movie;
   _MovieDetailScreenState(this.movie);
   @override
   void initState() {
-    // checkStatus();
+    getCurrentUser();
     super.initState();
     movieVideosBloc..getMovieVideos(movie.id);
   }
@@ -45,6 +45,17 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       final user = _auth.currentUser;
       if (user != null) {
         userEmail = user.email;
+
+        db.doc(userEmail).get().then((DocumentSnapshot documentData) {
+          if (documentData.exists) {
+            Map<String, dynamic> documentdata = documentData.data();
+            for (int i = 0; i < documentdata['MovieList'].length; i++) {
+              if (documentdata['MovieList'][i]['id'] == movie.id) {
+                _changeState();
+              }
+            }
+          }
+        });
       }
     } catch (e) {
       print("getCurrentUser error :$e");
@@ -57,38 +68,57 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     });
   }
 
-  void updateUser() {
-    int userCount;
-    db.get().then((res) => userCount = res.size);
-    getCurrentUser();
-    Map<String, dynamic> movieMap = ({
-      'id': movie.id,
-      'popularity': movie.popularity,
-      'title': movie.title,
-      'backPoster': movie.backPoster,
-      'poster': movie.poster,
-      'overview': movie.overview,
-      'rating': movie.rating
-    });
-    List<dynamic> elements = [movieMap];
-    db.doc(userEmail).get().then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        db
-            .doc(userEmail)
-            .update({'MovieList': FieldValue.arrayUnion(elements)})
-            .then((value) => print("user updates"))
-            .catchError((error) => print("Faild to update user: $error"));
-      } else {
-        db
-            .doc(userEmail)
-            .set({
-              'userId': userCount + 1,
-              'MovieList': FieldValue.arrayUnion(elements)
-            })
-            .then((value) => print("user added"))
-            .catchError((error) => print("Faild to add user: $error"));
-      }
-    });
+  void updateUser(bool state) {
+    if (state) {
+      _changeState();
+      Map<String, dynamic> movieMap = ({
+        'id': movie.id,
+        'popularity': movie.popularity,
+        'title': movie.title,
+        'backPoster': movie.backPoster,
+        'poster': movie.poster,
+        'overview': movie.overview,
+        'rating': movie.rating
+      });
+      List<dynamic> elements = [movieMap];
+      db
+          .doc(userEmail)
+          .update({'MovieList': FieldValue.arrayRemove(elements)})
+          .then((value) => print('Movie deleted'))
+          .catchError((error) => print("error in removing $error"));
+    } else {
+      _changeState();
+      int userCount;
+      db.get().then((res) => userCount = res.size);
+      Map<String, dynamic> movieMap = ({
+        'id': movie.id,
+        'popularity': movie.popularity,
+        'title': movie.title,
+        'backPoster': movie.backPoster,
+        'poster': movie.poster,
+        'overview': movie.overview,
+        'rating': movie.rating
+      });
+      List<dynamic> elements = [movieMap];
+      db.doc(userEmail).get().then((DocumentSnapshot documentSnapshot) {
+        if (documentSnapshot.exists) {
+          db
+              .doc(userEmail)
+              .update({'MovieList': FieldValue.arrayUnion(elements)})
+              .then((value) => print("user updates"))
+              .catchError((error) => print("Faild to update user: $error"));
+        } else {
+          db
+              .doc(userEmail)
+              .set({
+                'userId': userCount + 1,
+                'MovieList': FieldValue.arrayUnion(elements)
+              })
+              .then((value) => print("user added"))
+              .catchError((error) => print("Faild to add user: $error"));
+        }
+      });
+    }
   }
 
   @override
@@ -189,8 +219,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       FlatButton(
                         color: Style.Colors.secondColor,
                         onPressed: () {
-                          _changeState();
-                          updateUser();
+                          updateUser(_active);
                         },
                         child: Text(
                           _active ? 'Added' : 'Add',
