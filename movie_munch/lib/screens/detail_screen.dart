@@ -29,6 +29,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   _MovieDetailScreenState(this.movie);
   @override
   void initState() {
+    // checkStatus();
     super.initState();
     movieVideosBloc..getMovieVideos(movie.id);
   }
@@ -50,19 +51,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     }
   }
 
-  // void checkStatus() {
-  //   db.doc(userEmail).get().then((DocumentSnapshot documentSnapshot) {
-  //     if (documentSnapshot.exists) {
-  //       Map<String, dynamic> data = documentSnapshot.data();
-  //       for (int i = 0; i < data['Movieid'].length; i++) {
-  //         if (movie.id == data['Movieid'][i]) {
-  //           print(movie.id);
-  //         }
-  //       }
-  //     }
-  //   });
-  // }
-
   void _changeState() {
     setState(() {
       _active = !_active;
@@ -70,6 +58,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   }
 
   void updateUser() {
+    int userCount;
+    db.get().then((res) => userCount = res.size);
     getCurrentUser();
     Map<String, dynamic> movieMap = ({
       'id': movie.id,
@@ -91,7 +81,10 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       } else {
         db
             .doc(userEmail)
-            .set({'MovieList': FieldValue.arrayUnion(elements)})
+            .set({
+              'userId': userCount + 1,
+              'MovieList': FieldValue.arrayUnion(elements)
+            })
             .then((value) => print("user added"))
             .catchError((error) => print("Faild to add user: $error"));
       }

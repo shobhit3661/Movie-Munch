@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:movie_munch/model/movie.dart';
 import 'package:movie_munch/style/theme.dart' as Style;
-
 import 'detail_screen.dart';
 
 class CartScreen extends StatefulWidget {
@@ -111,6 +110,7 @@ Widget _movieList(DocumentSnapshot data) {
     );
   } else
     return ListView.builder(
+      physics: ScrollPhysics(),
       itemCount: movies['MovieList'].length,
       shrinkWrap: true,
       scrollDirection: Axis.vertical,

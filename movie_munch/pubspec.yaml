@@ -40,6 +40,8 @@ dependencies:
   firebase_core: ^1.0.3
   cloud_firestore: ^1.0.6
   firebase_auth: ^1.0.3
+  tflite_flutter: ^0.8.0
+
 
 dev_dependencies:
   flutter_test:
