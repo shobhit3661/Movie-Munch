@@ -5,11 +5,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:movie_munch/bloc/get_movie_videos_bloc.dart';
+import 'package:movie_munch/bloc/get_recommendation_bloc.dart';
 import 'package:movie_munch/model/movie.dart';
+import 'package:movie_munch/model/movie_response.dart';
 import 'package:movie_munch/style/theme.dart' as Style;
 import 'package:movie_munch/widgets/casts.dart';
 import 'package:movie_munch/widgets/movie_info.dart';
 import 'package:movie_munch/widgets/similar_movies.dart';
+import 'package:rxdart/rxdart.dart';
 
 class MovieDetailScreen extends StatefulWidget {
   final Movie movie;
@@ -68,7 +71,32 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     });
   }
 
+  List<Movie> getRecommendation() {
+    recommendationResult.getRecommendation(movie.id);
+    Stream streamData = recommendationResult.subject.stream;
+    BehaviorSubject<MovieResponse> responseData = streamData;
+    MovieResponse finalResult = responseData.value;
+    List<Movie> ans = finalResult.movies;
+    return ans;
+  }
+
   void updateUser(bool state) {
+    List<Movie> recommendationList = getRecommendation();
+    List<dynamic> finalRecommendationList = List<dynamic>();
+    String movieId = movie.id.toString();
+    List<dynamic> t = [movieId];
+    for (int i = 0; i < recommendationList.length; i++) {
+      Map<String, dynamic> temp = ({
+        'id': recommendationList[i].id,
+        'popularity': recommendationList[i].popularity,
+        'title': recommendationList[i].title,
+        'backPoster': recommendationList[i].backPoster,
+        'poster': recommendationList[i].poster,
+        'overview': recommendationList[i].overview,
+        'rating': recommendationList[i].rating
+      });
+      finalRecommendationList.add(temp);
+    }
     if (state) {
       _changeState();
       Map<String, dynamic> movieMap = ({
@@ -83,7 +111,10 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       List<dynamic> elements = [movieMap];
       db
           .doc(userEmail)
-          .update({'MovieList': FieldValue.arrayRemove(elements)})
+          .update({
+            'recommendationList': FieldValue.arrayRemove(t),
+            'MovieList': FieldValue.arrayRemove(elements)
+          })
           .then((value) => print('Movie deleted'))
           .catchError((error) => print("error in removing $error"));
     } else {
@@ -104,13 +135,21 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         if (documentSnapshot.exists) {
           db
               .doc(userEmail)
-              .update({'MovieList': FieldValue.arrayUnion(elements)})
+              .update({
+                'recommendationList': {
+                  movieId: FieldValue.arrayUnion(finalRecommendationList)
+                },
+                'MovieList': FieldValue.arrayUnion(elements)
+              })
               .then((value) => print("user updates"))
               .catchError((error) => print("Faild to update user: $error"));
         } else {
           db
               .doc(userEmail)
               .set({
+                'recommendationList': {
+                  movieId: FieldValue.arrayUnion(finalRecommendationList)
+                },
                 'userId': userCount + 1,
                 'MovieList': FieldValue.arrayUnion(elements)
               })
