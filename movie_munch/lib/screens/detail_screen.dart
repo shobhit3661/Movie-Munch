@@ -72,19 +72,25 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   }
 
   List<Movie> getRecommendation() {
-    recommendationResult.getRecommendation(movie.id);
-    Stream streamData = recommendationResult.subject.stream;
-    BehaviorSubject<MovieResponse> responseData = streamData;
-    MovieResponse finalResult = responseData.value;
-    List<Movie> ans = finalResult.movies;
-    return ans;
+    try {
+      recommendationResult.getRecommendation(movie.id);
+      Stream streamData = recommendationResult.subject.stream;
+      BehaviorSubject<MovieResponse> responseData = streamData;
+      MovieResponse finalResult = responseData.value;
+      List<Movie> ans = finalResult.movies;
+      if (ans.length == 0) {
+        ans = getRecommendation();
+      }
+      return ans;
+    } catch (e) {
+      print('very bad error $e');
+    }
   }
 
   void updateUser(bool state) {
     List<Movie> recommendationList = getRecommendation();
     List<dynamic> finalRecommendationList = List<dynamic>();
     String movieId = movie.id.toString();
-    List<dynamic> t = [movieId];
     for (int i = 0; i < recommendationList.length; i++) {
       Map<String, dynamic> temp = ({
         'id': recommendationList[i].id,
@@ -97,6 +103,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       });
       finalRecommendationList.add(temp);
     }
+
     if (state) {
       _changeState();
       Map<String, dynamic> movieMap = ({
@@ -111,12 +118,11 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       List<dynamic> elements = [movieMap];
       db
           .doc(userEmail)
-          .update({
-            'recommendationList': FieldValue.arrayRemove(t),
-            'MovieList': FieldValue.arrayRemove(elements)
-          })
+          .update({'MovieList': FieldValue.arrayRemove(elements)})
           .then((value) => print('Movie deleted'))
           .catchError((error) => print("error in removing $error"));
+
+      db.doc(userEmail).collection('recommendation').doc(movieId).delete();
     } else {
       _changeState();
       int userCount;
@@ -135,21 +141,13 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         if (documentSnapshot.exists) {
           db
               .doc(userEmail)
-              .update({
-                'recommendationList': {
-                  movieId: FieldValue.arrayUnion(finalRecommendationList)
-                },
-                'MovieList': FieldValue.arrayUnion(elements)
-              })
+              .update({'MovieList': FieldValue.arrayUnion(elements)})
               .then((value) => print("user updates"))
               .catchError((error) => print("Faild to update user: $error"));
         } else {
           db
               .doc(userEmail)
               .set({
-                'recommendationList': {
-                  movieId: FieldValue.arrayUnion(finalRecommendationList)
-                },
                 'userId': userCount + 1,
                 'MovieList': FieldValue.arrayUnion(elements)
               })
@@ -157,6 +155,13 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
               .catchError((error) => print("Faild to add user: $error"));
         }
       });
+      db
+          .doc(userEmail)
+          .collection('recommendation')
+          .doc(movieId)
+          .set({'list': finalRecommendationList})
+          .then((value) => print("Recommendation Added"))
+          .catchError((error) => print('recommendation got error $error'));
     }
   }
 

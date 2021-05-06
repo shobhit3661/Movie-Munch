@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_munch/screens/cart_screen.dart';
+import 'package:movie_munch/screens/recommendation_screen.dart';
 import 'package:movie_munch/style/theme.dart' as Style;
 import 'package:tflite_flutter/tflite_flutter.dart';
 
@@ -40,8 +41,6 @@ class MainDrawer extends StatelessWidget {
       }
       var output = List<double>(n).reshape([n, 1]);
       _interpreter.run(input, output);
-      print(input);
-      print(output);
     } catch (e) {
       print("This is the errore");
       print(e);
@@ -92,11 +91,10 @@ class MainDrawer extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    loadModel();
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => RecommendationScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RecommendationScreen()));
                   },
                   child: Text(
                     "Recommendation",
