@@ -96,14 +96,15 @@ Widget _movieList(QuerySnapshot data) {
   data.docs.forEach((doc) {
     Map<String, dynamic> tempdata = doc.data();
     for (int i = 0; i < tempdata['list'].length; i++) {
+      print(tempdata['list'][i]);
       Movie passMovie = new Movie(
-          tempdata['MovieList'][i]['id'],
-          tempdata['MovieList'][i]['popularity'],
-          tempdata['MovieList'][i]['title'],
-          tempdata['MovieList'][i]['backPoster'],
-          tempdata['MovieList'][i]['poster'],
-          tempdata['MovieList'][i]['overview'],
-          tempdata['MovieList'][i]['rating']);
+          tempdata['list'][i]['id'],
+          tempdata['list'][i]['popularity'],
+          tempdata['list'][i]['title'],
+          tempdata['list'][i]['backPoster'],
+          tempdata['list'][i]['poster'],
+          tempdata['list'][i]['overview'],
+          tempdata['list'][i]['rating']);
       finalList.add(passMovie);
     }
   });
@@ -116,7 +117,7 @@ Widget _movieList(QuerySnapshot data) {
           Column(
             children: <Widget>[
               Text(
-                "No More Movies",
+                "Add Movies to get recommendation",
                 style: TextStyle(fontSize: 20, color: Style.Colors.secondColor),
               )
             ],
