@@ -1,5 +1,5 @@
-import 'dart:math';
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +8,11 @@ import 'package:movie_munch/screens/recommendation_screen.dart';
 import 'package:movie_munch/style/theme.dart' as Style;
 import 'package:tflite_flutter/tflite_flutter.dart';
 
-// ignore: must_be_immutable
 class MainDrawer extends StatelessWidget {
   final _modelFile = 'coverted_model.tflite';
   final _auth = FirebaseAuth.instance;
   User loggedInUser;
+  int userId;
   String userName;
 
   void getuserName() async {
@@ -21,26 +21,28 @@ class MainDrawer extends StatelessWidget {
       if (user != null) {
         userName = user.email;
       }
+      DocumentReference db =
+          FirebaseFirestore.instance.collection('data').doc(userName);
+      db.get().then((DocumentSnapshot datasnap) {
+        userId = datasnap['userId'];
+      });
     } catch (e) {
       print(e);
     }
   }
 
-  void loadModel() async {
+  void loadandRunModel() async {
     try {
       Interpreter _interpreter;
       _interpreter = await Interpreter.fromAsset(_modelFile);
       _interpreter.allocateTensors();
       int n = 64;
       var input = List<List<int>>(n * 2).reshape([n, 2]);
-      Random ran = new Random();
-
-      for (int i = 0; i < n; i++) {
-        input[i][0] = 878;
-        input[i][1] = ran.nextInt(600);
-      }
       var output = List<double>(n).reshape([n, 1]);
       _interpreter.run(input, output);
+      print(input);
+      print(output);
+      _interpreter.close();
     } catch (e) {
       print("This is the errore");
       print(e);
@@ -50,6 +52,7 @@ class MainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     getuserName();
+    loadandRunModel();
     return Drawer(
       child: Container(
         color: Style.Colors.mainColor,
@@ -104,6 +107,7 @@ class MainDrawer extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
+                    //  loadModel();
                     _auth.signOut().then((_) =>
                         Navigator.of(context).pushReplacementNamed('/login'));
                   },

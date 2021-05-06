@@ -2,7 +2,7 @@
     package="com.example.movie_munch">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="movie_munch"
+        android:label="Movie db"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

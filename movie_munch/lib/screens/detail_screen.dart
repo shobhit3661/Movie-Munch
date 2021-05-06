@@ -148,7 +148,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
           db
               .doc(userEmail)
               .set({
-                'userId': userCount + 1,
+                'userId': userCount + 610,
                 'MovieList': FieldValue.arrayUnion(elements)
               })
               .then((value) => print("user added"))
