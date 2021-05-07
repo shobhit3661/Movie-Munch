@@ -108,6 +108,7 @@ Widget _movieList(QuerySnapshot data) {
       finalList.add(passMovie);
     }
   });
+  finalList.shuffle();
   if (finalList.length == 0) {
     return Container(
       child: Column(

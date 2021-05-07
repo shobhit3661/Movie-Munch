@@ -11,6 +11,9 @@ import 'package:tflite_flutter/tflite_flutter.dart';
 class MainDrawer extends StatelessWidget {
   final _modelFile = 'coverted_model.tflite';
   final _auth = FirebaseAuth.instance;
+  static int n = 64;
+  var input = List<List<int>>(n * 2).reshape([n, 2]);
+  var output = List<double>(n).reshape([n, 1]);
   User loggedInUser;
   int userId;
   String userName;
@@ -36,9 +39,6 @@ class MainDrawer extends StatelessWidget {
       Interpreter _interpreter;
       _interpreter = await Interpreter.fromAsset(_modelFile);
       _interpreter.allocateTensors();
-      int n = 64;
-      var input = List<List<int>>(n * 2).reshape([n, 2]);
-      var output = List<double>(n).reshape([n, 1]);
       _interpreter.run(input, output);
       print(input);
       print(output);
