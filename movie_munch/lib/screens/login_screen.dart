@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:movie_munch/screens/home_screen.dart';
 import 'package:movie_munch/style/theme.dart' as style;
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,6 +15,18 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String email;
   String password;
+
+  void errorResponse(String s) {
+    Fluttertoast.showToast(
+        msg: s,
+        toastLength: Toast.LENGTH_SHORT,
+        //  gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 builder: (context) => HomeScreen()));
                       }
                     } catch (e) {
-                      print(e);
+                      errorResponse(e.code);
                     }
                   },
                   minWidth: 200.0,

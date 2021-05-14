@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:movie_munch/screens/home_screen.dart';
 import 'package:movie_munch/screens/welcome_screen.dart';
 import 'package:movie_munch/style/theme.dart' as style;
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static String id = 'registration_screen';
@@ -14,6 +14,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final _auth = FirebaseAuth.instance;
   String email;
   String password;
+
+  void errorResponse(String s) {
+    Fluttertoast.showToast(
+        msg: s,
+        toastLength: Toast.LENGTH_SHORT,
+        //  gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,17 +114,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     // print(email);
                     // print(password);
                     try {
-                      final newUser = _auth.createUserWithEmailAndPassword(
-                          email: email, password: password);
+                      final newUser =
+                          await _auth.createUserWithEmailAndPassword(
+                              email: email, password: password);
 
                       if (newUser != null) {
+                        errorResponse("User Created Successfully");
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => WelcomeScreen()));
                       }
                     } catch (e) {
-                      print(e);
+                      errorResponse(e.code);
                     }
                   },
                   minWidth: 200.0,

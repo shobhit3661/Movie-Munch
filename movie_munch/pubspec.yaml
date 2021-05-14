@@ -41,6 +41,7 @@ dependencies:
   cloud_firestore: ^1.0.6
   firebase_auth: ^1.0.3
   tflite_flutter: ^0.8.0
+  fluttertoast: ^8.0.6
 
 
 dev_dependencies:
