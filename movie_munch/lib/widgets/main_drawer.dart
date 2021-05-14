@@ -52,7 +52,7 @@ class MainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     getuserName();
-    loadandRunModel();
+    //loadandRunModel();
     return Drawer(
       child: Container(
         color: Style.Colors.mainColor,

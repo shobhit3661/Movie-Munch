@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_munch/screens/home_screen.dart';
+import 'package:movie_munch/screens/welcome_screen.dart';
 import 'package:movie_munch/style/theme.dart' as style;
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -108,7 +109,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomeScreen()));
+                                builder: (context) => WelcomeScreen()));
                       }
                     } catch (e) {
                       print(e);

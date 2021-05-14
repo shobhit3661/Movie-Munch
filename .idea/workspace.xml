@@ -1,8 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="539f1bb0-9a25-4557-8766-97234ee48d33" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/movie_munch/lib/widgets/result.dart" beforeDir="false" afterPath="$PROJECT_DIR$/movie_munch/lib/widgets/result.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Movie Munch.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Movie Munch.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/.ipynb_checkpoints/ModelCoding-checkpoint.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ModelCoding.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/coverted_model.tflite" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/README" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/allbut.pl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/mku.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/u.data" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/u.genre" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/u.info" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/u.item" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/u.occupation" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/u.user" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/u1.base" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/u1.test" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/u2.base" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/u2.test" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/u3.base" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/u3.test" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/u4.base" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/u4.test" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/u5.base" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/u5.test" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/ua.base" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/ua.test" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/ub.base" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/ml-100k/ub.test" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/myModel/saved_model.pb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/myModel/variables/variables.data-00000-of-00001" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tflite_training/myModel/variables/variables.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/movie_munch/lib/screens/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/movie_munch/lib/screens/login_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/movie_munch/lib/screens/recommendation_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/movie_munch/lib/screens/recommendation_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/movie_munch/lib/screens/registration_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/movie_munch/lib/screens/registration_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/movie_munch/lib/widgets/main_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/movie_munch/lib/widgets/main_drawer.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,9 +60,10 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/movie_munch" />
     <property name="settings.editor.selected.configurable" value="dart.settings" />
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -38,6 +78,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="421" y="96" key="FileChooserDialogImpl" timestamp="1620929557199">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="421" y="96" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1620929557199" />
     <state x="277" y="57" key="SettingsEditor" timestamp="1618765543109">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

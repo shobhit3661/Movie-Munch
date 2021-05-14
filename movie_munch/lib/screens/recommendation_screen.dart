@@ -96,7 +96,6 @@ Widget _movieList(QuerySnapshot data) {
   data.docs.forEach((doc) {
     Map<String, dynamic> tempdata = doc.data();
     for (int i = 0; i < tempdata['list'].length; i++) {
-      print(tempdata['list'][i]);
       Movie passMovie = new Movie(
           tempdata['list'][i]['id'],
           tempdata['list'][i]['popularity'],
