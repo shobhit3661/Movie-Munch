@@ -49,7 +49,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       if (user != null) {
         userEmail = user.email;
 
-        db.doc(userEmail).get().then((DocumentSnapshot documentData) {
+        await db.doc(userEmail).get().then((DocumentSnapshot documentData) {
           if (documentData.exists) {
             Map<String, dynamic> documentdata = documentData.data();
             for (int i = 0; i < documentdata['MovieList'].length; i++) {
@@ -87,7 +87,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     }
   }
 
-  void updateUser(bool state) {
+  Future<void> updateUser(bool state) async {
     List<Movie> recommendationList = getRecommendation();
     List<dynamic> finalRecommendationList = List<dynamic>();
     String movieId = movie.id.toString();
@@ -116,17 +116,21 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         'rating': movie.rating
       });
       List<dynamic> elements = [movieMap];
-      db
+      await db
           .doc(userEmail)
           .update({'MovieList': FieldValue.arrayRemove(elements)})
           .then((value) => print('Movie deleted'))
           .catchError((error) => print("error in removing $error"));
 
-      db.doc(userEmail).collection('recommendation').doc(movieId).delete();
+      await db
+          .doc(userEmail)
+          .collection('recommendation')
+          .doc(movieId)
+          .delete();
     } else {
       _changeState();
       int userCount;
-      db.get().then((res) => userCount = res.size);
+      await db.get().then((res) => userCount = res.size);
       Map<String, dynamic> movieMap = ({
         'id': movie.id,
         'popularity': movie.popularity,
@@ -137,15 +141,18 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         'rating': movie.rating
       });
       List<dynamic> elements = [movieMap];
-      db.doc(userEmail).get().then((DocumentSnapshot documentSnapshot) {
+      await db
+          .doc(userEmail)
+          .get()
+          .then((DocumentSnapshot documentSnapshot) async {
         if (documentSnapshot.exists) {
-          db
+          await db
               .doc(userEmail)
               .update({'MovieList': FieldValue.arrayUnion(elements)})
               .then((value) => print("user updates"))
               .catchError((error) => print("Faild to update user: $error"));
         } else {
-          db
+          await db
               .doc(userEmail)
               .set({
                 'userId': userCount + 610,
@@ -155,7 +162,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
               .catchError((error) => print("Faild to add user: $error"));
         }
       });
-      db
+      await db
           .doc(userEmail)
           .collection('recommendation')
           .doc(movieId)
