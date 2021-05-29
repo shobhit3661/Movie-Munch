@@ -4,4 +4,7 @@ Flutter Movie Application Using TMDB API and fireBase
 #Requirement
 1. Java 15 or lower
 
-![Application Snaps](/Images/p4.png =250x250)
+Application Snaps
+
+<img src="/Images/p4.png" width="200" height="500">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="/Images/p5.png" width="200" height="500">
+
